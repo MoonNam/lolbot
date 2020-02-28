@@ -2,7 +2,8 @@ import bs4
 import discord
 import requests
 from bs4 import BeautifulSoup
-from discord.ext.commands import bot
+import os
+
 
 client = discord.Client()
 
@@ -138,4 +139,5 @@ async def on_message(message, value=None):
     if message.content.startswith("/제작자"):
         await message.channel.send("제작자 : 문효찬#1973 (Nam & Don)")
 
-client.run("NjgyMjE3OTA4NTg3MzMxNjM0.Xlk7qw.i4gbVe7wYbvIU8nJjyobFap402U")
+access_token = os.environ["BOT_TOKEN"]
+client.run(access_token)
