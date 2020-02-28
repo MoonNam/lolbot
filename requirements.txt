@@ -1,0 +1,4 @@
+discord.py==0.16.12
+bs4.py==0.16.12
+requests.py==0.16.12
+BeautifulSoup.py==0.16.12
