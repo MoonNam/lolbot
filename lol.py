@@ -50,14 +50,12 @@ async def on_message(message, value=None):
         # print(soup)
 
         try:
-            # 솔로랭크 정보
             rank_solo = soup.find('div', {'class': 'TierRank'}).get_text()
             point = soup.find('span', {'class': 'LeaguePoints'}).get_text().split('\n')[1].split('LP')[0]
             wins = soup.find('span', {'class': 'wins'}).get_text().split('W')[0] + '승'
             losses = soup.find('span', {'class': 'losses'}).get_text().split('L')[0] + '패'
             winratio = '승률' + soup.find('span', {'class': 'winratio'}).get_text().split('Ratio')[1]
 
-            # 자유랭크 정보
             rank_sub = soup.find('div', {'class': 'sub-tier__rank-tier'}).get_text().split('\n')[1]
             point_sub = soup.find('div', {'class': 'sub-tier__league-point'}).get_text().split('LP')[0]
             wins_losses_sub = soup.find('span', {'class': 'sub-tier__gray-text'}).get_text()
@@ -66,7 +64,6 @@ async def on_message(message, value=None):
             winratio_sub = \
                 '승률 ' + soup.find('div', {'class': 'sub-tier__gray-text'}).get_text().split('\n')[1].split('Rate')[1]
 
-            # 모스트 챔프 (첫번째 하나만)
             champ_name = soup.find('div', {'class': 'ChampionName'}).get_text().split('\n')[2].strip()
             champ_kda = soup.find('div', {'class': 'KDA'}).get_text().split('KDA')[0].strip()
             kdaint = champ_kda.split(':')[0]
@@ -91,12 +88,10 @@ async def on_message(message, value=None):
                 msg = name + " 님의 " + " 모스트는 " + champ_name + " 입니다. "
             print(msg)
 
-            # 챔프 이미지 가져오기
             temp = str(soup.find('img', {'alt': champ_name}))
             champ_image = temp.split('src="//')[1]
             champ_image = "http://" + champ_image.split('"')[0]
 
-            # 티어 이미지 가져오기
             temp = str(soup.find_all('img', {'class': 'Image'})[2])
             tierurl = temp.split('src="//')[1]
             tierurl = "http://" + tierurl.split('"')[0]
@@ -135,9 +130,6 @@ async def on_message(message, value=None):
             print("랭크 정보중 등록되지 않은 정보가 있습니다")
             await message.channel.send("정보를 불러올 수 없어요!\n" +
                                        "솔로랭크 또는 자유랭크 배치를 보지 않은 소환사에요")
-
-    if message.content.startswith("/제작자"):
-        await message.channel.send("제작자 : 문효찬#1973 (Nam & Don)")
 
 access_token = os.environ["BOT_TOKEN"]
 client.run(access_token)
